@@ -1,3 +1,6 @@
+ll parents[NMAX];
+ll size[NMAX];
+
 int Find(int x) {
 	int tx, rx;
 	tx = x;
