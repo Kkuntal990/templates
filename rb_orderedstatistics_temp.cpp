@@ -43,3 +43,4 @@ int main() {
     }
     return 0;
 }
+//https://codeforces.com/blog/entry/11080
