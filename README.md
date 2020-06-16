@@ -1,3 +1,4 @@
 # templates
 Templates and code snippets which I find useful often.
-Just for convenience.
+Some solved problems on online judges.
+Just for my convenience.
