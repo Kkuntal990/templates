@@ -12,14 +12,16 @@ set nocompatible
 filetype off  
 
 
- 
+
+
 set encoding=utf-8
 let using_neovim = has('nvim')
 let using_vim = !using_neovim
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
-nnoremap <C-c> :!g++ -o  %:r.out % -std=c++11
+nnoremap <C-z> :! g++ -o  %:r.out % -std=c++11 
 nnoremap <C-x> :!./%:r.out
-nnoremap <\s>p :w !python3
+vnoremap <C-c> "*y :let @+=@*<CR>
+map <C-v> "+P
 
 " ============================================================================
 " Vim-plug initialization
@@ -93,13 +95,15 @@ Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 " Search results counter
 Plug 'vim-scripts/IndexedSearch'
-" A couple of nice colorschemes
+" A couple of nice colorschemeshighlight CellSpace guibg=gray30 ctermbg=20
 " Plug 'fisadev/fisa-vim-colorscheme'
 Plug 'patstockwell/vim-monokai-tasty'
 " Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Code and files fuzzy finder
+Plug 'z-huabao/vim-submode'
+Plug 'z-huabao/vim-slime-ipython'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Pending tasks list
@@ -320,6 +324,8 @@ let NERDTreeDirArrowExpandable = "\u00a0"
 let NERDTreeDirArrowCollapsible = "\u00a0"
 let NERDTreeNodeDelimiter = "\x07"
 
+
+highlight CellSpace guibg=gray29 ctermbg=20
 " Autorefresh on tree focus
 function! NERDTreeRefresh()
     if &filetype == "nerdtree"
@@ -370,6 +376,37 @@ nmap ,F :Lines<CR>
 nmap ,wF :execute ":Lines " . expand('<cword>')<CR>
 " commands finder mapping
 nmap ,c :Commands<CR>
+
+
+"IPYTHON slime--------
+let g:slime_ipython_no_mapping = 1
+" show or hide REPL terminal-console
+nnoremap <Leader>t :ToggleConsole<CR>
+
+" cell manager
+"call submode#MapEnterKeys('cell-mode', ['<M-CR>', '<Leader><Esc>'])
+"call submode#MapLeaveKeys('cell-mode', ['<CR>', 'q'])
+"call submode#SetMaps('cell-mode', {
+    "\ '': ':SendCurrentCellNext<CR>',  
+    "\ 's': ':NextCell<CR>',
+    "\ 'k': ':PrevCell<CR>',
+    "\ 'J': ':MoveCellDown<CR>',
+    "\ 'K': ':MoveCellUp<CR>',
+    "\ 'dd': ':CutCurrentCell<CR>',
+    "\ 'yy': ':CopyCurrentCell<CR>',
+    "\ })
+
+
+let g:slime_ipython_console_layout = {'position': 'right', 'width': 0.5}
+
+
+
+
+let g:slime_ipython_repls = {
+    \ 'python': ["ipython3\n", "%cpaste -q\n", "--\n"],
+    \ 'sh': ["shell\n", "", ""],
+    \ }
+"-----------------------
 
 " Deoplete -----------------------------
 
